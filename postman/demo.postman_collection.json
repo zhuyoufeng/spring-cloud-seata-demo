@@ -1,0 +1,192 @@
+{
+	"info": {
+		"_postman_id": "06e43c9a-6881-47fe-ba18-2b994faa609f",
+		"name": "demo",
+		"description": "seata demo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a1e8d050-decc-4b42-b4ac-9a2a7770968d",
+						"exec": [
+							"if(responseCode.code === 200){",
+							"    var jsonData = JSON.parse(responseBody);",
+							"    postman.setEnvironmentVariable(\"jwtToken\", jsonData.access_token);",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "grant_type",
+							"value": "client_credentials",
+							"type": "text"
+						},
+						{
+							"key": "client_id",
+							"value": "user",
+							"type": "text"
+						},
+						{
+							"key": "client_secret",
+							"value": "password",
+							"type": "text"
+						},
+						{
+							"key": "scope",
+							"value": "read, write",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:9090/api/uaa/oauth/token",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9090",
+					"path": [
+						"api",
+						"uaa",
+						"oauth",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create student and school - 1",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"student\": {\r\n\t\t\"name\": \"Jerry\",\r\n\t\t\"age\": 12\r\n\t},\r\n\t\"school\": {\r\n\t\t\"name\": \"Harvard\"\r\n\t}\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:9090/api/a/student-school?access_token={{jwtToken}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9090",
+					"path": [
+						"api",
+						"a",
+						"student-school"
+					],
+					"query": [
+						{
+							"key": "access_token",
+							"value": "{{jwtToken}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create student and school - 2",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"student\": {\r\n\t\t\"name\": \"Jerry1\",\r\n\t\t\"age\": 12\r\n\t},\r\n\t\"school\": {\r\n\t\t\"name\": \"Harvard\"\r\n\t}\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:9090/api/a/student-school?access_token={{jwtToken}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9090",
+					"path": [
+						"api",
+						"a",
+						"student-school"
+					],
+					"query": [
+						{
+							"key": "access_token",
+							"value": "{{jwtToken}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create student and school - 3",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"student\": {\r\n\t\t\"name\": \"Jerry1\",\r\n\t\t\"age\": 12\r\n\t},\r\n\t\"school\": {\r\n\t\t\"name\": \"Harvard\"\r\n\t}\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:9090/api/a/student-school?access_token={{jwtToken}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9090",
+					"path": [
+						"api",
+						"a",
+						"student-school"
+					],
+					"query": [
+						{
+							"key": "access_token",
+							"value": "{{jwtToken}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

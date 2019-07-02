@@ -1,0 +1,37 @@
+server:
+  port: 7002
+spring:
+  application:
+    name: service-a
+
+  cloud:
+    alibaba:
+      seata:
+        tx-service-group: test-group
+
+mybatis-plus:
+  mapper-locations: classpath:/mapper/**/*Mapper.xml
+  type-aliases-package: io.github.seata.demo.common.entity
+  global-config:
+    id-type: 0
+    field-strategy: 1
+    db-column-underline: true
+  configuration:
+    map-underscore-to-camel-case: true
+
+
+security:
+  oauth2:
+    client:
+      access-token-uri: http://localhost:7001/oauth/token
+      user-authorization-uri: http://localhost:7001/oauth/authorize
+      client-id: server
+      client-secret: server
+      scope: server
+    resource:
+      user-info-uri: http://localhost:7001/user
+      prefer-token-info: false
+      token-info-uri: http://localhost:7001/oauth/check_token
+
+
+

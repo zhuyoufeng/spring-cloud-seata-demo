@@ -1,0 +1,24 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+server:
+  port: 9090
+  servlet:
+    context-path: /api
+spring:
+  application:
+    name: gateway
+zuul:
+  routes:
+    auth:
+      path: /uaa/**
+      serviceId: auth
+    service-a:
+      path: /a/**
+      serviceId: service-a
+    service-b:
+      path: /b/**
+      serviceId: service-b
+
+
