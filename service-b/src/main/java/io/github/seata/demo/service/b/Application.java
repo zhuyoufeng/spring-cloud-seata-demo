@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 
 @EnableTransactionManagement
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "io.github")
 @EnableOAuth2Client
 public class Application {
 

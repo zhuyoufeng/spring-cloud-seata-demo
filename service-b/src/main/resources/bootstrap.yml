@@ -9,6 +9,14 @@ spring:
       seata:
         tx-service-group: test-group
 
+  datasource:
+    druid:
+      url: jdbc:mysql://localhost:3306/test_service_b?characterEncoding=utf-8&useSSL=false&createDatabaseIfNotExist=true
+      username: root
+      password: root
+      driver-class-name: com.mysql.jdbc.Driver
+
+
 mybatis-plus:
   mapper-locations: classpath:/mapper/**/*Mapper.xml
   type-aliases-package: io.github.seata.demo.service.b.entity

@@ -1,31 +1,28 @@
-package io.github.seata.demo.service.b.config;
+package io.github.seata.demo.common.config;
+
 
 import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceAutoConfigure;
 import io.seata.rm.datasource.DataSourceProxy;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
 
-import java.util.Objects;
-
-/**
- * @author youfeng.zhu
- */
 @Configuration
+@EnableConfigurationProperties(DruidDataSourceProperties.class)
 @AutoConfigureBefore({DruidDataSourceAutoConfigure.class})
-public class DataSourceConfig {
+public class SeataDataSourceConfiguration {
 
-    DruidDataSource dataSource() throws Exception {
-        System.getProperties().load(Objects.requireNonNull(DataSourceConfig.class.getClassLoader().getResourceAsStream("application.properties")));
-        return new DruidDataSource();
+    private DruidDataSource dataSource(DruidDataSourceProperties druidDataSourceProperties) {
+        return new DruidDataSourceWrapper(druidDataSourceProperties);
     }
 
     @Bean
-    public DataSourceProxy dataSourceProxy() throws Exception {
-        return new DataSourceProxy(dataSource());
+    public DataSourceProxy dataSourceProxy(DruidDataSourceProperties druidDataSourceProperties) {
+        return new DataSourceProxy(dataSource(druidDataSourceProperties));
     }
 
     @Bean("jdbcTemplate")
@@ -33,5 +30,7 @@ public class DataSourceConfig {
     public JdbcTemplate jdbcTemplate(DataSourceProxy dataSourceProxy) {
         return new JdbcTemplate(dataSourceProxy);
     }
+
+
 
 }
